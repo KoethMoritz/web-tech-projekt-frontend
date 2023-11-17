@@ -1,6 +1,10 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>
+        WebTech Projekt WS23/24 by:
+        Patrick Scheibe und Moritz Köth
+    </h1>
+
   </div>
 </template>
 
