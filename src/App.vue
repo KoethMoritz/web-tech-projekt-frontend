@@ -6,8 +6,12 @@
             <div class="wrapper">
                 <HelloWorld msg="Willkommen!" />
 
+
                 <nav>
+                    <RouterLink to="/">Home</RouterLink>
                     <RouterLink to="/about">About</RouterLink>
+
+                    <RouterLink :to="{ name: 'recipeDetails', params: { id: 1 } }">RecipeDetails</RouterLink>
                 </nav>
             </div>
         </header>
@@ -19,6 +23,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
 import HelloWorld from './components/HelloWorld.vue';
+
 
 const items: any[] = [];
 let nameField: string = '';
