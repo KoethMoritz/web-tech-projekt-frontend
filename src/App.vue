@@ -1,24 +1,62 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/kochbox.jpg" width="425" height="165" />
+    <div id="app">
+        <header>
+            <img alt="Vue logo" class="logo" src="@/assets/kochbox.jpg" width="425" height="165" />
 
-    <div class="wrapper">
-      <HelloWorld msg="Willkommen!" />
+            <div class="wrapper">
+                <HelloWorld msg="Willkommen!" />
 
-      <nav>
-<!--        <RouterLink to="/">Home</RouterLink>  -->
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+                <nav>
+                    <RouterLink to="/about">About</RouterLink>
+                </nav>
+            </div>
+        </header>
+
+        <RouterView />
     </div>
-  </header>
-
-  <RouterView />
 </template>
+
+<script setup lang="ts">
+import { RouterLink, RouterView } from 'vue-router';
+import HelloWorld from './components/HelloWorld.vue';
+
+const items: any[] = [];
+let nameField: string = '';
+let idField: number = 0;
+
+const loadRecipes = () => {
+    const endpoint = 'http://localhost:8080/recipe/';
+    const requestOptions: RequestInit = {
+        method: 'GET',
+        redirect: 'follow',
+    };
+    fetch(endpoint, requestOptions)
+        .then((response) => response.json())
+        .then((result) => result.forEach((thing: any) => items.push(thing)))
+        .catch((error) => console.log('error', error));
+};
+
+const save = () => {
+    const endpoint = 'http://localhost:8080/recipe/';
+    const data = {
+        name: nameField,
+        id: idField,
+    };
+    const requestOptions: RequestInit = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    };
+    fetch(endpoint, requestOptions)
+        .then((response) => response.json())
+        .then((responseData) => {
+            console.log('Success:', responseData);
+        })
+        .catch((error) => console.log('error', error));
+};
+</script>
 
 <style scoped>
 header {
