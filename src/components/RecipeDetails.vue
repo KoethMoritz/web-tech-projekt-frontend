@@ -4,6 +4,7 @@
         <div v-if="recipe">
             <h3>{{ recipe.name }}</h3>
             <p>ID: {{ recipe.id }}</p>
+            <p>Beschreibung: {{ recipe.description }}</p>
         </div>
         <div v-else>
             <p>Rezept nicht gefunden.</p>
