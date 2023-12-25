@@ -4,14 +4,12 @@
             <img alt="Vue logo" class="logo" src="@/assets/kochbox.jpg" width="425" height="165" />
 
             <div class="wrapper">
-                <HelloWorld msg="Willkommen!" />
+                <HelloWorld msg="Deine eigene digitale Kochbox" />
 
 
                 <nav>
                     <RouterLink to="/">Home</RouterLink>
                     <RouterLink to="/about">About</RouterLink>
-
-                    <RouterLink :to="{ name: 'recipeDetails', params: { id: 1 } }">RecipeDetails</RouterLink>
                 </nav>
             </div>
         </header>
