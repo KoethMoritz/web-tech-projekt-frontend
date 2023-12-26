@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Recipe Form</h2>
+        <h2>Rezept hinzufügen</h2>
         <form @submit.prevent="saveRecipe">
             <div>
                 <label for="recipeName">Rezeptname:</label>
