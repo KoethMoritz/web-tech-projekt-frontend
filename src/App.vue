@@ -1,64 +1,29 @@
 <template>
-    <div id="app">
+    <div>
         <header>
             <img alt="Vue logo" class="logo" src="@/assets/kochbox.jpg" width="425" height="165" />
 
             <div class="wrapper">
                 <HelloWorld msg="Deine eigene digitale Kochbox" />
 
-
                 <nav>
                     <RouterLink to="/">Home</RouterLink>
                     <RouterLink to="/about">About</RouterLink>
+                    <RouterLink to="/recipe-form">Add Recipe</RouterLink>
                 </nav>
             </div>
         </header>
 
-        <RouterView />
+        <main>
+            <RouterView />
+        </main>
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { RouterLink, RouterView } from 'vue-router';
 import HelloWorld from './components/HelloWorld.vue';
-
-
-const items: any[] = [];
-let nameField: string = '';
-let idField: number = 0;
-
-const loadRecipes = () => {
-    const endpoint = 'http://localhost:8080/recipe/';
-    const requestOptions: RequestInit = {
-        method: 'GET',
-        redirect: 'follow',
-    };
-    fetch(endpoint, requestOptions)
-        .then((response) => response.json())
-        .then((result) => result.forEach((thing: any) => items.push(thing)))
-        .catch((error) => console.log('error', error));
-};
-
-const save = () => {
-    const endpoint = 'http://localhost:8080/recipe/';
-    const data = {
-        name: nameField,
-        id: idField,
-    };
-    const requestOptions: RequestInit = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    };
-    fetch(endpoint, requestOptions)
-        .then((response) => response.json())
-        .then((responseData) => {
-            console.log('Success:', responseData);
-        })
-        .catch((error) => console.log('error', error));
-};
+import RecipeForm from './components/RecipeForm.vue';
 </script>
 
 <style scoped>
