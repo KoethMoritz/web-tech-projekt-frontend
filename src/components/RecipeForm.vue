@@ -1,16 +1,22 @@
-<!-- recipeform.vue -->
-
 <template>
     <div>
         <h2>Recipe Form</h2>
         <form @submit.prevent="saveRecipe">
-            <label for="recipeName">Recipe Name:</label>
-            <input v-model="nameField" type="text" id="recipeName" required />
+            <div>
+                <label for="recipeName">Rezeptname:</label>
+            </div>
+            <div>
+                <input v-model="nameField" type="text" id="recipeName" required />
+            </div>
 
-            <label for="recipeDescription">Description:</label>
-            <textarea v-model="descriptionField" id="recipeDescription" required></textarea>
+            <div>
+                <label for="recipeDescription">Beschreibung:</label>
+            </div>
+            <div>
+                <textarea v-model="descriptionField" id="recipeDescription" required></textarea>
+            </div>
 
-            <button type="submit">Save Recipe</button>
+            <button type="submit">Rezept speichern</button>
         </form>
     </div>
 </template>
