@@ -7,6 +7,7 @@
             <p>Beschreibung: {{ recipe.description }}</p>
             <p>Zubereitungszeit: {{ recipe.preparationTime }} Minuten</p>
             <button v-if="!confirmDelete" @click="confirmDelete = true">Rezept löschen</button>
+            <button @click="editRecipe">Rezept bearbeiten</button>
             <div v-if="confirmDelete">
                 <p style="color: red;">Sind Sie sich sicher, dass Sie das Rezept löschen wollen?</p>
                 <button @click="deleteRecipe">Ja, löschen</button>
@@ -65,6 +66,10 @@ const deleteRecipe = () => {
         .catch((error) => {
             console.error('Error deleting recipe:', error);
         });
+};
+
+const editRecipe = () => {
+    router.push(`/recipe-form/${recipe.value.id}`);
 };
 
 onMounted(() => {

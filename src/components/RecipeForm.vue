@@ -1,66 +1,102 @@
 <template>
     <div>
-        <h2>Rezept hinzufügen</h2>
-        <form @submit.prevent="saveRecipe">
-            <div>
-                <label for="recipeName">Rezeptname:</label>
-            </div>
-            <div>
-                <input v-model="nameField" type="text" id="recipeName" required />
-            </div>
+        <h2>{{ isEditing ? 'Rezept bearbeiten' : 'Neues Rezept hinzufügen' }}</h2>
+        <form @submit.prevent="submitForm">
+            <label for="name">Name:</label>
+            <input type="text" v-model="recipe.name" required />
 
-            <div>
-                <label for="recipeDescription">Beschreibung:</label>
-            </div>
-            <div>
-                <textarea v-model="descriptionField" id="recipeDescription" required></textarea>
-            </div>
+            <label for="description">Beschreibung:</label>
+            <textarea v-model="recipe.description" required></textarea>
 
-            <div>
-                <label for="preparationTime">Zubereitungszeit (Minuten):</label>
-            </div>
-            <div>
-                <input v-model="preparationTimeField" type="number" id="preparationTime" required />
-            </div>
+            <label for="preparationTime">Zubereitungszeit (Minuten):</label>
+            <input type="number" v-model="recipe.preparationTime" required />
 
-            <button type="submit">Rezept speichern</button>
+            <button type="submit">{{ isEditing ? 'Aktualisieren' : 'Hinzufügen' }}</button>
         </form>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
-const nameField = ref('');
-const descriptionField = ref('');
-const preparationTimeField = ref('');
+const recipe = ref({
+    name: '',
+    description: '',
+    preparationTime: 0
+});
+const isEditing = ref(false);
+const route = useRoute();
+const router = useRouter();
 
-const saveRecipe = async () => {
-    try {
-        const response = await fetch('http://localhost:8080/save-recipe', {
+const loadRecipeForEditing = () => {
+    const recipeId = route.params.id;
+    const endpoint = `http://localhost:8080/recipe/${recipeId}`;
+    fetch(endpoint)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            recipe.value = data;
+            isEditing.value = true;
+        })
+        .catch((error) => {
+            console.error('Error fetching recipe for editing:', error);
+        });
+};
+
+const submitForm = () => {
+    if (isEditing.value) {
+        const endpoint = `http://localhost:8080/recipe/${recipe.value.id}`;
+        fetch(endpoint, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(recipe.value),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(() => {
+                router.push(`/recipe/${recipe.value.id}`);
+            })
+            .catch((error) => {
+                console.error('Error updating recipe:', error);
+            });
+    } else {
+        const endpoint = 'http://localhost:8080/recipe';
+        fetch(endpoint, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json',
             },
-            body: new URLSearchParams({
-                name: nameField.value,
-                description: descriptionField.value,
-                preparationTime: preparationTimeField.value,
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const responseData = await response.json();
-        console.log('Recipe saved:', responseData);
-
-        nameField.value = '';
-        descriptionField.value = '';
-        preparationTimeField.value = '';
-    } catch (error) {
-        console.error('Error saving recipe:', error);
+            body: JSON.stringify(recipe.value),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(() => {
+                router.push('/home');
+            })
+            .catch((error) => {
+                console.error('Error adding new recipe:', error);
+            });
     }
 };
+
+onMounted(() => {
+    if (route.name === 'recipeFormEdit') {
+        loadRecipeForEditing();
+    }
+});
 </script>

@@ -23,8 +23,13 @@ const router = createRouter({
       component: RecipeDetails
     },
     {
+      path: '/recipe-form/:id',
+      name: 'recipeFormEdit',
+      component: RecipeForm
+    },
+    {
       path: '/recipe-form',
-      name: 'recipeForm',
+      name: 'recipeFormAdd',
       component: RecipeForm
     }
   ]
