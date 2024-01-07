@@ -16,6 +16,13 @@
                 <textarea v-model="descriptionField" id="recipeDescription" required></textarea>
             </div>
 
+            <div>
+                <label for="preparationTime">Zubereitungszeit (Minuten):</label>
+            </div>
+            <div>
+                <input v-model="preparationTimeField" type="number" id="preparationTime" required />
+            </div>
+
             <button type="submit">Rezept speichern</button>
         </form>
     </div>
@@ -26,6 +33,7 @@ import { ref } from 'vue';
 
 const nameField = ref('');
 const descriptionField = ref('');
+const preparationTimeField = ref('');
 
 const saveRecipe = async () => {
     try {
@@ -37,6 +45,7 @@ const saveRecipe = async () => {
             body: new URLSearchParams({
                 name: nameField.value,
                 description: descriptionField.value,
+                preparationTime: preparationTimeField.value,
             }),
         });
 
@@ -47,9 +56,9 @@ const saveRecipe = async () => {
         const responseData = await response.json();
         console.log('Recipe saved:', responseData);
 
-        // Formularfelder leeren
         nameField.value = '';
         descriptionField.value = '';
+        preparationTimeField.value = '';
     } catch (error) {
         console.error('Error saving recipe:', error);
     }

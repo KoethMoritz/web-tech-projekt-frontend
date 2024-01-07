@@ -5,6 +5,7 @@
             <h3>{{ recipe.name }}</h3>
             <p>ID: {{ recipe.id }}</p>
             <p>Beschreibung: {{ recipe.description }}</p>
+            <p>Zubereitungszeit: {{ recipe.preparationTime }} Minuten</p>
             <button v-if="!confirmDelete" @click="confirmDelete = true">Rezept löschen</button>
             <div v-if="confirmDelete">
                 <p style="color: red;">Sind Sie sich sicher, dass Sie das Rezept löschen wollen?</p>
