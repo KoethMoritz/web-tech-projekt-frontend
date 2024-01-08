@@ -11,6 +11,16 @@
             <label for="preparationTime">Zubereitungszeit (Minuten):</label>
             <input type="number" v-model="recipe.preparationTime" required />
 
+            <div v-for="(ingredient, index) in recipe.ingredients" :key="index">
+                <label :for="'ingredientName' + index">Zutat {{ index + 1 }} - Name:</label>
+                <input :id="'ingredientName' + index" v-model="ingredient.name" required />
+
+                <label :for="'ingredientQuantity' + index">Zutat {{ index + 1 }} - Menge:</label>
+                <input :id="'ingredientQuantity' + index" v-model="ingredient.quantity" required />
+            </div>
+
+            <button type="button" @click="addIngredient">Zutat hinzufügen</button>
+
             <button type="submit">{{ isEditing ? 'Aktualisieren' : 'Hinzufügen' }}</button>
         </form>
     </div>
@@ -23,7 +33,8 @@ import { useRoute, useRouter } from 'vue-router';
 const recipe = ref({
     name: '',
     description: '',
-    preparationTime: 0
+    preparationTime: 0,
+    ingredients: []
 });
 const isEditing = ref(false);
 const route = useRoute();
@@ -46,6 +57,10 @@ const loadRecipeForEditing = () => {
         .catch((error) => {
             console.error('Error fetching recipe for editing:', error);
         });
+};
+
+const addIngredient = () => {
+    recipe.value.ingredients.push({ name: '', quantity: '' });
 };
 
 const submitForm = () => {

@@ -6,8 +6,19 @@
             <p>ID: {{ recipe.id }}</p>
             <p>Beschreibung: {{ recipe.description }}</p>
             <p>Zubereitungszeit: {{ recipe.preparationTime }} Minuten</p>
+
+            <div v-if="recipe.ingredients && recipe.ingredients.length > 0">
+                <h4>Zutaten:</h4>
+                <ul>
+                    <li v-for="(ingredient, index) in recipe.ingredients" :key="index">
+                        {{ ingredient.name }} - {{ ingredient.quantity }}
+                    </li>
+                </ul>
+            </div>
+
             <button v-if="!confirmDelete" @click="confirmDelete = true">Rezept löschen</button>
             <button @click="editRecipe">Rezept bearbeiten</button>
+
             <div v-if="confirmDelete">
                 <p style="color: red;">Sind Sie sich sicher, dass Sie das Rezept löschen wollen?</p>
                 <button @click="deleteRecipe">Ja, löschen</button>
