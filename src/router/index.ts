@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue';
 import AboutView from '../views/AboutView.vue';
 import RecipeDetails from '../components/RecipeDetails.vue';
 import RecipeForm from '../components/RecipeForm.vue';
+import RecipeList from '../components/RecipeList.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +32,11 @@ const router = createRouter({
       path: '/recipe-form',
       name: 'recipeFormAdd',
       component: RecipeForm
+    },
+    {
+      path: '/recipes',
+      name: 'recipeList',
+      component: RecipeList
     }
   ]
 });
