@@ -86,7 +86,8 @@ const submitForm = () => {
                 }
                 return response.json();
             })
-            .then(() => {
+            .then((data) => {
+                recipe.value.id = data.id;
                 router.push(`/recipe/${recipe.value.id}`);
             })
             .catch((error) => {
@@ -107,8 +108,9 @@ const submitForm = () => {
                 }
                 return response.json();
             })
-            .then(() => {
-                router.push('/home');
+            .then((data) => {
+                recipe.value.id = data.id;
+                router.push(`/recipe/${recipe.value.id}`);
             })
             .catch((error) => {
                 console.error('Error adding new recipe:', error);
