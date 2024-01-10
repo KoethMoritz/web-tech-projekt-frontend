@@ -9,7 +9,7 @@
             <textarea v-model="recipe.description" required></textarea>
 
             <label for="preparationTime">Zubereitungszeit (Minuten):</label>
-            <input type="number" v-model="recipe.preparationTime" required />
+            <input type="number" v-model="recipe.preparationTime" required min="0" />
 
             <div v-for="(ingredient, index) in recipe.ingredients" :key="index">
                 <label :for="'ingredientName' + index">Zutat {{ index + 1 }} - Name:</label>
