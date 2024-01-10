@@ -17,6 +17,8 @@
 
                 <label :for="'ingredientQuantity' + index">Zutat {{ index + 1 }} - Menge:</label>
                 <input :id="'ingredientQuantity' + index" v-model="ingredient.quantity" required />
+
+                <button type="button" @click="removeIngredient(index)">Zutat entfernen</button>
             </div>
 
             <button type="button" @click="addIngredient">Zutat hinzufügen</button>
@@ -62,6 +64,11 @@ const loadRecipeForEditing = () => {
 const addIngredient = () => {
     recipe.value.ingredients.push({ name: '', quantity: '' });
 };
+
+const removeIngredient = (index) => {
+    recipe.value.ingredients.splice(index, 1);
+};
+
 
 const submitForm = () => {
     if (isEditing.value) {
