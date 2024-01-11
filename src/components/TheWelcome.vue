@@ -1,11 +1,25 @@
+<template>
+    <WelcomeItem>
+        <template #icon>
+            <DocumentationIcon />
+        </template>
+        <template #heading>Deine Rezepte</template>
+        <input type="text" v-model="searchKeyword" placeholder="Search by name" />
+        <ul>
+            <li v-for="result in searchResults" :key="result.id">
+                <RouterLink :to="'/recipe/' + result.id">{{ result.name }}</RouterLink>
+            </li>
+        </ul>
+    </WelcomeItem>
+</template>
+
 <script setup lang="ts">
-import WelcomeItem from './WelcomeItem.vue'
-import DocumentationIcon from './icons/IconDocumentation.vue'
 import { RouterLink } from "vue-router";
 import { ref, onMounted, watch } from 'vue';
 
 const searchKeyword = ref('');
 const recipes = ref([]);
+const searchResults = ref([]);
 
 const loadRecipes = async () => {
     try {
@@ -22,8 +36,11 @@ const loadRecipes = async () => {
 
 const searchRecipes = () => {
     const keyword = searchKeyword.value.toLowerCase();
-    const filteredRecipes = recipes.value.filter(recipe => recipe.name.toLowerCase().includes(keyword));
-    console.log('Filtered Recipes:', filteredRecipes);
+    if (keyword.trim() === '') {
+        searchResults.value = [];
+    } else {
+        searchResults.value = recipes.value.filter(recipe => recipe.name.toLowerCase().includes(keyword));
+    }
 };
 
 onMounted(() => {
@@ -32,13 +49,3 @@ onMounted(() => {
 
 watch(searchKeyword, searchRecipes);
 </script>
-
-<template>
-    <WelcomeItem>
-        <template #icon>
-            <DocumentationIcon />
-        </template>
-        <template #heading>Deine Rezepte</template>
-        <input type="text" v-model="searchKeyword" placeholder="Search by name" />
-    </WelcomeItem>
-</template>
