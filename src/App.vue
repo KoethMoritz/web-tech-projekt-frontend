@@ -1,16 +1,22 @@
 <template>
     <div>
         <header>
-            <img alt="Vue logo" class="logo" src="@/assets/kochbox.jpg" width="425" height="165" />
-
             <div class="wrapper">
                 <HelloWorld msg="Deine eigene digitale Kochbox" />
 
                 <nav>
-                    <RouterLink to="/">Home</RouterLink>
-                    <RouterLink to="/about">About</RouterLink>
-                    <RouterLink to="/recipe-form">Add Recipe</RouterLink>
-                    <RouterLink to="/recipes">Recipe List</RouterLink>
+                    <router-link to="/">
+                        <img src="@/assets/Home.jpg" alt="Home" style="width: 250px; height: 50px;" />
+                    </router-link>
+                    <router-link to="/about">
+                        <img src="@/assets/About.jpg" alt="About" style="width: 250px; height: 50px;" />
+                    </router-link>
+                    <router-link to="/recipe-form">
+                        <img src="@/assets/NeuesRezept.jpg" alt="Add Recipe" style="width: 250px; height: 50px;" />
+                    </router-link>
+                    <router-link to="/recipes">
+                        <img src="@/assets/DeineRezepte.jpg" alt="Recipe List" style="width: 250px; height: 50px;" />
+                    </router-link>
                 </nav>
             </div>
         </header>
@@ -24,7 +30,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
 import HelloWorld from './components/HelloWorld.vue';
-import RecipeForm from './components/RecipeForm.vue';
 </script>
 
 <style scoped>
@@ -33,24 +38,11 @@ header {
     max-height: 100vh;
 }
 
-.logo {
-    display: block;
-    margin: 0 auto 2rem;
-}
-
 nav {
     width: 100%;
     font-size: 12px;
     text-align: center;
     margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-    color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-    background-color: transparent;
 }
 
 nav a {
