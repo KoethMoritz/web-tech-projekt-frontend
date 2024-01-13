@@ -12,13 +12,17 @@
             <input type="number" v-model="recipe.preparationTime" required min="0" />
 
             <div v-for="(ingredient, index) in recipe.ingredients" :key="index">
-                <label :for="'ingredientName' + index">Zutat {{ index + 1 }} - Name:</label>
+                <label :for="'ingredientName' + index">Zutat:</label>
                 <input :id="'ingredientName' + index" v-model="ingredient.name" required />
 
-                <label :for="'ingredientQuantity' + index">Zutat {{ index + 1 }} - Menge:</label>
+                <label :for="'ingredientQuantity' + index">Menge:</label>
                 <input :id="'ingredientQuantity' + index" v-model="ingredient.quantity" required />
 
-                <button type="button" @click="removeIngredient(index)">Zutat entfernen</button>
+                <img
+                    src="@/assets/x.png" style="width: 23px; height: 23px;"
+                    alt="Delete"
+                    @click="removeIngredient(index)"
+                />
             </div>
 
             <button type="button" @click="addIngredient">Zutat hinzufügen</button>
@@ -68,7 +72,6 @@ const addIngredient = () => {
 const removeIngredient = (index) => {
     recipe.value.ingredients.splice(index, 1);
 };
-
 
 const submitForm = () => {
     if (isEditing.value) {
