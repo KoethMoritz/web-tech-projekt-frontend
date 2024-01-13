@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="color: white;">
         <h2>{{ isEditing ? 'Rezept bearbeiten' : 'Neues Rezept hinzufügen' }}</h2>
         <form @submit.prevent="submitForm">
             <label for="name">Name:</label>

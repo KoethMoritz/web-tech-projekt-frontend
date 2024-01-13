@@ -1,20 +1,21 @@
 <template>
     <div>
-        <h2>Rezeptdetails</h2>
-        <div v-if="recipe && !deletionConfirmed">
-            <h3>{{ recipe.name }}</h3>
-            <p>ID: {{ recipe.id }}</p>
-            <p>Beschreibung: {{ recipe.description }}</p>
+        <div v-if="recipe && !deletionConfirmed" style="color: white;">
+            <h1>{{ recipe.name }}</h1>
+            <!-- <p>ID: {{ recipe.id }}</p> -->
             <p>Zubereitungszeit: {{ recipe.preparationTime }} Minuten</p>
 
             <div v-if="recipe.ingredients && recipe.ingredients.length > 0">
                 <h4>Zutaten:</h4>
                 <ul>
                     <li v-for="(ingredient, index) in recipe.ingredients" :key="index">
-                        {{ ingredient.name }} - {{ ingredient.quantity }}
+                        {{ ingredient.quantity }} {{ ingredient.name }}
                     </li>
                 </ul>
             </div>
+
+            <h4>Zubereitung: </h4>
+            <p>{{ recipe.description }}</p>
 
             <button v-if="!confirmDelete" @click="confirmDelete = true">Rezept löschen</button>
             <button @click="editRecipe">Rezept bearbeiten</button>

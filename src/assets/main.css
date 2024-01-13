@@ -1,5 +1,14 @@
 @import './base.css';
 
+body {
+  background-image: url('@/assets/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  color: #fff;
+}
+
 @media (min-width: 1024px) {
   body {
     display: flex;
@@ -30,9 +39,6 @@ a,
 }
 
 @media (min-width: 1024px) {
-  body {
-  }
-
   #app {
     display: grid;
     grid-template-columns: 1fr 1fr;

@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h2>Recipe List</h2>
+    <div style="color: white;">
+        <h2>Deine Rezepte:</h2>
         <ul>
             <li v-for="recipe in recipes" :key="recipe.id">
                 <router-link :to="{ name: 'recipeDetails', params: { id: recipe.id }}">{{ recipe.name }}</router-link>
