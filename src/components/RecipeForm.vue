@@ -42,6 +42,7 @@
             <button type="button" @click="addIngredient">Zutat hinzufügen</button>
 
             <button type="submit">{{ isEditing ? 'Aktualisieren' : 'Hinzufügen' }}</button>
+            <p></p>
         </form>
     </div>
 </template>

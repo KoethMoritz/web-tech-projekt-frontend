@@ -4,6 +4,9 @@
             {{ msg }}
         </div>
     </div>
+    <main>
+        <TheWelcome />
+    </main>
 </template>
 
 <style scoped>
@@ -21,4 +24,5 @@
 
 <script setup>
 defineProps(['msg']);
+import TheWelcome from '../components/TheWelcome.vue';
 </script>
