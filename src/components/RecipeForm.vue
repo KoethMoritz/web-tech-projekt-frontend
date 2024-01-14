@@ -7,6 +7,7 @@
       </div>
       <div>
         <input type="text" v-model="recipe.name" style="width: 300px;" required />
+          <p v-if="nameError" style="color: red;">{{ nameError }}</p>
         <p></p>
       </div>
       <div>
@@ -14,6 +15,7 @@
       </div>
       <div>
         <textarea v-model="recipe.description" style="width: 1200px; height: 250px;" required></textarea>
+          <p v-if="descriptionError" style="color: red;">{{ descriptionError }}</p>
         <p></p>
       </div>
       <div>
@@ -21,15 +23,18 @@
       </div>
       <div>
         <input type="number" v-model="recipe.preparationTime" style="width: 75px;" required min="0" />
-        <p></p>
+          <p v-if="preparationTimeError" style="color: red;">{{ preparationTimeError }}</p>
+          <p></p>
       </div>
 
       <div v-for="(ingredient, index) in recipe.ingredients" :key="index">
         <label :for="'ingredientName' + index">Zutat:</label>
         <input :id="'ingredientName' + index" v-model="ingredient.name" required />
+          <p v-if="ingredientNameErrors[index]" style="color: red;">{{ ingredientNameErrors[index] }}</p>
 
         <label :for="'ingredientQuantity' + index">Menge:</label>
         <input :id="'ingredientQuantity' + index" v-model="ingredient.quantity" required />
+          <p v-if="ingredientQuantityErrors[index]" style="color: red;">{{ ingredientQuantityErrors[index] }}</p>
 
         <img
             src="@/assets/x.png"
@@ -64,6 +69,11 @@ const recipe = ref({
 });
 const isEditing = ref(false);
 const showCancelConfirmation = ref(false);
+const nameError = ref('');
+const descriptionError = ref('');
+const preparationTimeError = ref('');
+const ingredientNameErrors = ref([]);
+const ingredientQuantityErrors = ref([]);
 
 const route = useRoute();
 const router = useRouter();
@@ -96,6 +106,42 @@ const removeIngredient = (index) => {
 };
 
 const submitForm = () => {
+    if (recipe.value.name.length > 255) {
+        nameError.value = 'Der Name darf nicht mehr als 255 Zeichen haben.';
+        return;
+    } else {
+        nameError.value = '';
+    }
+    if (recipe.value.description.length > 100000) {
+        descriptionError.value = 'Die Beschreibung darf nicht mehr als 100.000 Zeichen haben.';
+        return;
+    } else {
+        descriptionError.value = '';
+    }
+    if (recipe.value.preparationTime > 1000000) {
+        preparationTimeError.value = 'Die Zubereitungszeit darf nicht mehr als 1.000.000 Minuten betragen.';
+        return;
+    } else {
+        preparationTimeError.value = '';
+    }
+    recipe.value.ingredients.forEach((ingredient, index) => {
+        if (ingredient.name.length > 255) {
+            ingredientNameErrors.value[index] = 'Der Zutaten-Name darf nicht mehr als 255 Zeichen haben.';
+        } else {
+            ingredientNameErrors.value[index] = '';
+        }
+
+        if (ingredient.quantity.length > 255) {
+            ingredientQuantityErrors.value[index] = 'Die Zutaten-Menge darf nicht mehr als 255 Zeichen haben.';
+        } else {
+            ingredientQuantityErrors.value[index] = '';
+        }
+    });
+
+    if (ingredientNameErrors.value.some(error => error !== '') ||
+        ingredientQuantityErrors.value.some(error => error !== '')) {
+        return;
+    }
   if (isEditing.value) {
     const endpoint = `http://localhost:8080/recipe/${recipe.value.id}`;
     fetch(endpoint, {
