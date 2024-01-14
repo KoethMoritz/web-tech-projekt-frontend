@@ -144,18 +144,18 @@ const submitForm = () => {
 };
 
 const cancelEdit = () => {
-  if (isEditing.value) {
-    showCancelConfirmation.value = true;
-  } else {
-    const recipeId = route.params.id;
-    router.push(`/recipe/${recipeId}`);
-  }
+        showCancelConfirmation.value = true;
 };
 
 const confirmCancel = () => {
   showCancelConfirmation.value = false;
-  const recipeId = route.params.id;
-  router.push(`/recipe/${recipeId}`);
+  if (isEditing.value) {
+      const recipeId = route.params.id;
+      router.push(`/recipe/${recipeId}`)
+    } else {
+      router.push(`/`);
+  }
+
 };
 
 const cancelConfirmation = () => {
