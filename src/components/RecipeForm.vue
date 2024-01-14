@@ -2,14 +2,27 @@
     <div style="color: white;">
         <h2>{{ isEditing ? 'Rezept bearbeiten' : 'Neues Rezept hinzufügen' }}</h2>
         <form @submit.prevent="submitForm">
-            <label for="name">Name:</label>
-            <input type="text" v-model="recipe.name" required />
-
-            <label for="description">Beschreibung:</label>
-            <textarea v-model="recipe.description" required></textarea>
-
-            <label for="preparationTime">Zubereitungszeit (Minuten):</label>
-            <input type="number" v-model="recipe.preparationTime" required min="0" />
+            <div>
+                <label for="name">Name: </label>
+            </div>
+            <div>
+                <input type="text" v-model="recipe.name" style="width: 300px;" required />
+                <p></p>
+            </div>
+            <div>
+                <label for="description">Beschreibung:</label>
+            </div>
+            <div>
+                <textarea v-model="recipe.description" style="width: 1200px; height: 250px;" required></textarea>
+                <p></p>
+            </div>
+            <div>
+                <label for="preparationTime">Zubereitungszeit in Minuten: </label>
+            </div>
+            <div>
+                <input type="number" v-model="recipe.preparationTime" style="width: 75px;" required min="0" />
+                <p></p>
+            </div>
 
             <div v-for="(ingredient, index) in recipe.ingredients" :key="index">
                 <label :for="'ingredientName' + index">Zutat:</label>
@@ -19,7 +32,8 @@
                 <input :id="'ingredientQuantity' + index" v-model="ingredient.quantity" required />
 
                 <img
-                    src="@/assets/x.png" style="width: 23px; height: 23px;"
+                    src="@/assets/x.png"
+                    style="width: 23px; height: 23px;"
                     alt="Delete"
                     @click="removeIngredient(index)"
                 />

@@ -6,7 +6,7 @@ body {
   background-repeat: no-repeat;
   margin: 0;
   font-family: 'Arial', sans-serif;
-  color: #fff;
+  color: #ffffff;
 }
 
 @media (min-width: 1024px) {
@@ -17,7 +17,7 @@ body {
   }
 
   #app {
-    max-width: 10048px;
+    max-width: 1160px;
     width: 100%;
     margin: 0 auto;
     padding: 2rem;

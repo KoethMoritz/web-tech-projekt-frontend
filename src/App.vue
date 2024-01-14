@@ -2,20 +2,21 @@
     <div>
         <header>
             <div class="wrapper">
-                <HelloWorld msg="Deine eigene digitale Kochbox" />
+                <p class="invisible-text">PLATZHALTERPLATZHALTERPLATZHALTERPLATZHALTERPLATZHALTERPLATZHALTERPLATZHALTERPLATZHALTERPLATZHALTERPLATZHALTERPLATZHALTERPLATZHALTER</p>
+                <p class="invisible-text">PLATZHALTERPLATZHALTERPLATZH</p><HelloWorld msg="Deine eigene digitale Kochbox"/>
 
                 <nav>
                     <router-link to="/">
-                        <img src="@/assets/Home.jpg" alt="Home" style="width: 250px; height: 50px;" />
+                        <img src="@/assets/Home.png" alt="Home" style="width: 250px; height: 50px;" />
                     </router-link>
                     <router-link to="/about">
-                        <img src="@/assets/About.jpg" alt="About" style="width: 250px; height: 50px;" />
+                        <img src="@/assets/About.png" alt="About" style="width: 250px; height: 50px;" />
                     </router-link>
                     <router-link to="/recipe-form">
-                        <img src="@/assets/NeuesRezept.jpg" alt="Add Recipe" style="width: 250px; height: 50px;" />
+                        <img src="@/assets/Add%20Recipe.png" alt="Add Recipe" style="width: 250px; height: 50px;" />
                     </router-link>
                     <router-link to="/recipes">
-                        <img src="@/assets/DeineRezepte.jpg" alt="Recipe List" style="width: 250px; height: 50px;" />
+                        <img src="@/assets/Recipe%20List.png" alt="Recipe List" style="width: 250px; height: 50px;" />
                     </router-link>
                 </nav>
             </div>
@@ -36,6 +37,10 @@ import HelloWorld from './components/HelloWorld.vue';
 header {
     line-height: 1.5;
     max-height: 100vh;
+}
+
+.invisible-text {
+    visibility: hidden;
 }
 
 nav {
@@ -60,10 +65,6 @@ nav a:first-of-type {
         display: flex;
         place-items: center;
         padding-right: calc(var(--section-gap) / 2);
-    }
-
-    .logo {
-        margin: 0 2rem 0 0;
     }
 
     header .wrapper {
