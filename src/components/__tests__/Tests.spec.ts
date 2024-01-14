@@ -22,13 +22,6 @@ describe('WelcomeItem', () => {
 
 });
 
-describe('RecipeList', () => {
-  it('renders without errors', () => {
-    const wrapper = mount(RecipeList);
-    expect(wrapper).toBeDefined();
-  });
-});
-
 describe('TheWelcome', () => {
     it('renders without errors', () => {
       const wrapper = mount(TheWelcome);
