@@ -4,7 +4,7 @@
       <DocumentationIcon />
     </template>
     <template #heading>Deine Rezepte</template>
-    <input type="text" v-model="searchKeyword" placeholder="Search by name" />
+    <input type="text" v-model="searchKeyword" placeholder="Suche dein Rezept..." style="width: 1100px;" />
     <ul>
       <li v-for="result in searchResults" :key="result.id" style="list-style: none; margin-bottom: 10px;">
         <RouterLink :to="'/recipe/' + result.id" style="color: lightgreen; font-weight: bold; text-decoration: none; font-size: 18px;">
