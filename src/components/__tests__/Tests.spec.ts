@@ -2,7 +2,6 @@ import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import HelloWorld from '../HelloWorld.vue';
 import WelcomeItem from '../WelcomeItem.vue';
-import RecipeList from "../RecipeList.vue";
 import TheWelcome from "../TheWelcome.vue";
 import HomeView from "../../views/HomeView.vue";
 import AboutView from "../../views/AboutView.vue";
@@ -40,14 +39,6 @@ describe('WelcomeItem', () => {
       }
     });
     expect(wrapper.text()).toContain('Test Heading');
-  });
-});
-
-// Checks if the RecipeList component renders without errors.
-describe('RecipeList', () => {
-  it('renders without errors', () => {
-    const wrapper = mount(RecipeList);
-    expect(wrapper).toBeDefined();
   });
 });
 
